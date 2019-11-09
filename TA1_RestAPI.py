@@ -39,3 +39,11 @@ def searchBy(field, keyword):
     results = pd.read_sql("SELECT movie, year, imdb, duration, description FROM Movies WHERE "+field+" LIKE '%"+keyword+"%'", con = cnx)
     print(results)
     return results.to_string()	
+	
+if __name__  == '__main__':
+    route('/getMovie/<name>')(getMovieDetails)
+    route('/sortBy/<field>/<type>')(sortBy)
+    route('/sortBy/<field>')(sortBy)
+    route('/searchBy/<field>/<keyword>')(searchBy)
+    route('/login')(home)
+    run(host='localhost', port=8080, debug=True)
