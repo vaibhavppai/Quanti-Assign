@@ -33,3 +33,19 @@ def sortBy(field, type='asc'):
     sorted = pd.read_sql("SELECT movie, year, imdb, duration, description FROM Movies ORDER BY "+field+", movie "+type,con = cnx)
     print(sorted['year'])
     return sorted.to_string()
+	
+@route('/login', method = ['POST'])
+@auth_basic(is_authenticated_user)
+def home():
+    print(request.auth)
+    return ['hooray, you are authenticated! your info is: {}'.format(request.auth)]
+
+@route('/searchBy')
+@auth_basic(is_authenticated_user)
+def searchBy(field, keyword):
+    s = " "
+    keyword = (s.join(keyword.strip().split('-'))).lower()
+    field = field.lower()
+    results = pd.read_sql("SELECT movie, year, imdb, duration, description FROM Movies WHERE LOWER("+field+") LIKE '%"+keyword+"%'", con = cnx)
+    print(results)
+    return results.to_string()
