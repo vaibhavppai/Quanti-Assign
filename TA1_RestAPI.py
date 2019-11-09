@@ -47,7 +47,6 @@ def searchBy(field, keyword):
     keyword = (s.join(keyword.strip().split('-'))).lower()
     field = field.lower()
     results = pd.read_sql("SELECT movie, year, imdb, duration, description FROM Movies WHERE LOWER("+field+") LIKE '%"+keyword+"%'", con = cnx)
-    print(results)
     return results.to_string()
 	
 if __name__  == '__main__':
