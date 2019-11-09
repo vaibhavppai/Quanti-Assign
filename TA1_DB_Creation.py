@@ -1,9 +1,7 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 from requests import get
-from time import sleep
 from time import time
-import random
 from warnings import warn
 from IPython.core.display import clear_output
 
